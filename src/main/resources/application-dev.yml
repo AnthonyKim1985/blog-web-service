@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: blog-web-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${dev.mysql.hostname}:${dev.mysql.port}/${dev.mysql.database-name}?useSSL=false&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul
+    username: ${dev.mysql.username}
+    password: ${dev.mysql.password}
+    hikari:
+      idle-timeout: 10000
+      max-lifetime: 28000000
+      connection-timeout: 10000
+      validation-timeout: 10000
+  jpa:
+    hibernate:
+      ddl-auto: create
+    generate-ddl: true
+    show-sql: true
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        format_sql: true
+  rabbitmq:
+    host: ${dev.rabbitmq.hostname}
+    port: ${dev.rabbitmq.port}
+    username: ${dev.rabbitmq.username}
+    password: ${dev.rabbitmq.password}
+  redis:
+    host: ${dev.redis.hostname}
+    port: ${dev.redis.port}
+    password: ${dev.redis.password}
+    database: 0
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 128MB
+      max-request-size: 128MB
+
+logging:
+  level:
+    com.anthonykim.blog: debug
+    org:
+      hibernate: debug
+      springframework:
+        amqp:
+          rabbit: debug
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,refresh
+
+server:
+  port: ${dev.server.port}
+  error:
+    include-message: always
+
+grpc:
+  server:
+    port: ${dev.grpc.server.port}
+  client:
+    blog-log-service:
+      address: static://${dev.grpc.client.blog-log-service.hostname}:${dev.grpc.client.blog-log-service.port}
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext
