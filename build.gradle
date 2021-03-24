@@ -42,7 +42,7 @@ repositories {
 }
 
 bootJar {
-    baseName = 'adag-web-service'
+    baseName = 'blog-web-service'
     version = '1.0.0'
 }
 
@@ -142,19 +142,7 @@ task printBaseName {
 }
 
 test {
-    useJUnitPlatform {
-        systemProperty "test.profile", "unit"
-    }
-    testLogging {
-        showStandardStreams = true
-    }
-}
-
-task integrationTest(type: Test) {
-    useJUnitPlatform {
-        systemProperty "test.profile", "integration"
-        systemProperty "spring.profiles.active", System.properties['spring.test.profiles.active']
-    }
+    useJUnitPlatform()
     testLogging {
         showStandardStreams = true
     }
