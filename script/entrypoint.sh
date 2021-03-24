@@ -17,5 +17,5 @@ for ((i = 1; i < argc; i += 2)); do
   echo >&2 "The ${host} has been connected."
 done
 
-echo >&2 "run java -Dspring.profiles.active=${args[0]} -Duser.timezone=Asia/Seoul -Xmx1024m -XX:+UseG1GC -cp app:app/lib/* com.anthonykim.web.BlogWebServiceApplication"
-java -Dspring.profiles.active=${args[0]} -Duser.timezone=Asia/Seoul -Xmx1024m -XX:+UseG1GC -cp app:app/lib/* com.anthonykim.web.BlogWebServiceApplication
+echo >&2 "run java -Dspring.profiles.active=${args[0]} -Duser.timezone=Asia/Seoul -Xmx1024m -XX:+UseG1GC -cp app:app/lib/* com.anthonykim.blog.BlogWebServiceApplication"
+java -Dspring.profiles.active=${args[0]} -Duser.timezone=Asia/Seoul -Xmx1024m -XX:+UseG1GC -cp app:app/lib/* com.anthonykim.blog.BlogWebServiceApplication
