@@ -1,4 +1,4 @@
-FROM openjdk:14-jdk-alpine
+FROM openjdk:15-jdk-alpine
 VOLUME /tmp
 ARG DEPENDENCY
 EXPOSE 80
