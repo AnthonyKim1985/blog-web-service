@@ -3,21 +3,19 @@
 argc=$#
 args=("$@")
 
-for ((i=1; i<argc; i+=2));
-do
-    host=${args[$i]}
-    port=${args[$i + 1]}
+for ((i = 1; i < argc; i += 2)); do
+  host=${args[$i]}
+  port=${args[$i + 1]}
 
-    >&2 echo "Wait for ${host} dependency";
-    >&2 echo "run nc -z ${host} ${port}";
+  echo >&2 "Wait for ${host} dependency"
+  echo >&2 "run nc -z ${host} ${port}"
 
-    while ! nc -z "${host}" "${port}";
-    do
-      >&2 echo "The ${host} is not ready - waiting...";
-      sleep 1;
-    done;
-    >&2 echo "The ${host} has been connected.";
+  while ! nc -z "${host}" "${port}"; do
+    echo >&2 "The ${host} is not ready - waiting..."
+    sleep 1
+  done
+  echo >&2 "The ${host} has been connected."
 done
 
->&2 echo "run java -Dspring.profiles.active=${args[0]} -Duser.timezone=Asia/Seoul -Xmx1024m -XX:+UseG1GC -cp app:app/lib/* com.anthonykim.web.BlogWebServiceApplication"
+echo >&2 "run java -Dspring.profiles.active=${args[0]} -Duser.timezone=Asia/Seoul -Xmx1024m -XX:+UseG1GC -cp app:app/lib/* com.anthonykim.web.BlogWebServiceApplication"
 java -Dspring.profiles.active=${args[0]} -Duser.timezone=Asia/Seoul -Xmx1024m -XX:+UseG1GC -cp app:app/lib/* com.anthonykim.web.BlogWebServiceApplication
