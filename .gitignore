@@ -38,4 +38,3 @@ out/
 
 # User defined
 src/main/resources/environment.properties
-env.sh
