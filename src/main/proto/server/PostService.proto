@@ -22,12 +22,13 @@ message AttachedFile {
 }
 
 message CreatePostRequest {
-  string username = 1;
-  string userFullName = 2;
-  repeated string tag = 3;
-  string title = 4;
-  string body = 5;
-  AttachedFile attachedFile = 6;
+  string apiKey = 1;
+  string username = 2;
+  string userFullName = 3;
+  repeated string tag = 4;
+  string title = 5;
+  string body = 6;
+  AttachedFile attachedFile = 7;
 }
 
 message CreatePostResponse {
