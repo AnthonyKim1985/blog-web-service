@@ -2,6 +2,7 @@ package com.anthonykim.blog.entity.post;
 
 import com.anthonykim.blog.entity.chat.Chat;
 import com.anthonykim.blog.entity.util.StringAttributeConverter;
+import com.anthonykim.blog.grpc.service.AttachedFile;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -10,6 +11,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -78,4 +81,27 @@ public class Post implements Serializable {
     private Timestamp createdAt;
     @UpdateTimestamp
     private Timestamp updatedAt;
+
+    public Post(String username, String userFullName, String title, String body, Set<PostAttachedFile> postAttachedFiles, Set<PostInterest> postInterests, Set<PostSubscriber> postSubscribers, Set<PostViewer> postViewers, Set<PostTag> postTags, Set<Chat> chats, Integer countOfInterestingPostSubscribers, Integer countOfPostAttachedFiles, Integer countOfChats, Boolean removed) {
+    }
+
+    public Post(final String username,
+                final String userFullName,
+                final String title,
+                final String body,
+                final List<String> tags,
+                final AttachedFile attachedFile) {
+        this.username = username;
+        this.userFullName = userFullName;
+        this.title = title;
+        this.body = body;
+
+        // TODO: data processing..
+        this.postTags = postTags;
+        this.countOfPostAttachedFiles = countOfPostAttachedFiles;
+
+        this.countOfChats = 0;
+        this.countOfInterestingPostSubscribers = 0;
+        this.removed = Boolean.FALSE;
+    }
 }
