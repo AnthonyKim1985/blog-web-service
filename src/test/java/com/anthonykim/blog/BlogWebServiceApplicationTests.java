@@ -2,12 +2,14 @@ package com.anthonykim.blog;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest
+@ActiveProfiles("local")
+@SpringBootTest(classes = BlogWebServiceApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class BlogWebServiceApplicationTests {
 
     @Test
-    void contextLoads() {
+    void test() {
     }
 
 }
