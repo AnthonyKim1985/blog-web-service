@@ -28,7 +28,7 @@ message CreatePostRequest {
   repeated string tag = 4;
   string title = 5;
   string body = 6;
-  AttachedFile attachedFile = 7;
+  repeated AttachedFile attachedFile = 7;
 }
 
 message CreatePostResponse {
