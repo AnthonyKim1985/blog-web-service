@@ -1,5 +1,6 @@
 package com.anthonykim.blog.entity.post;
 
+import com.anthonykim.blog.grpc.service.AttachedFile;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
@@ -33,7 +34,7 @@ public class PostAttachedFile implements Serializable {
     @Column
     private String filename;
     @Column(length = 16)
-    private String fineExtension;
+    private String fileExtension;
     private Long fileSize;
 
     @ToString.Exclude
@@ -45,4 +46,13 @@ public class PostAttachedFile implements Serializable {
     private Timestamp createdAt;
     @UpdateTimestamp
     private Timestamp updatedAt;
+
+    public PostAttachedFile(final AttachedFile attachedFile, final Post post) {
+        this.fileKey = attachedFile.getFileKey();
+        this.downloadUri = attachedFile.getDownloadUri();
+        this.filename = attachedFile.getFilename();
+        this.fileExtension = attachedFile.getFileExtension();
+        this.fileSize = attachedFile.getFileSize();
+        this.post = post;
+    }
 }

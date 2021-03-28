@@ -11,10 +11,10 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -82,26 +82,28 @@ public class Post implements Serializable {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
-    public Post(String username, String userFullName, String title, String body, Set<PostAttachedFile> postAttachedFiles, Set<PostInterest> postInterests, Set<PostSubscriber> postSubscribers, Set<PostViewer> postViewers, Set<PostTag> postTags, Set<Chat> chats, Integer countOfInterestingPostSubscribers, Integer countOfPostAttachedFiles, Integer countOfChats, Boolean removed) {
-    }
-
     public Post(final String username,
                 final String userFullName,
                 final String title,
                 final String body,
                 final List<String> tags,
-                final AttachedFile attachedFile) {
+                final List<AttachedFile> attachedFiles) {
         this.username = username;
         this.userFullName = userFullName;
         this.title = title;
         this.body = body;
-
-        // TODO: data processing..
-        this.postTags = postTags;
-        this.countOfPostAttachedFiles = countOfPostAttachedFiles;
-
         this.countOfChats = 0;
         this.countOfInterestingPostSubscribers = 0;
         this.removed = Boolean.FALSE;
+
+        if (tags != null && !tags.isEmpty())
+            this.postTags = tags.stream().map(t -> new PostTag(t, this)).collect(Collectors.toSet());
+
+        if (attachedFiles != null && !attachedFiles.isEmpty()) {
+            this.postAttachedFiles = attachedFiles.stream().map(p -> new PostAttachedFile(p, this)).collect(Collectors.toSet());
+            this.countOfPostAttachedFiles = attachedFiles.size();
+        } else {
+            this.countOfPostAttachedFiles = 0;
+        }
     }
 }

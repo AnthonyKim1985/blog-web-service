@@ -39,4 +39,9 @@ public class PostTag implements Serializable {
     private Timestamp createdAt;
     @UpdateTimestamp
     private Timestamp updatedAt;
+
+    public PostTag(final String tag, final Post post) {
+        this.tag = tag;
+        this.post = post;
+    }
 }

@@ -29,7 +29,7 @@ public class PostService {
                           final String title,
                           final String body,
                           final List<String> tags,
-                          final AttachedFile attachedFile) {
-        return postRepository.save(new Post(username, userFullName, title, body, tags, attachedFile));
+                          final List<AttachedFile> attachedFiles) {
+        return postRepository.save(new Post(username, userFullName, title, body, tags, attachedFiles));
     }
 }

@@ -33,9 +33,9 @@ public class PostGrpcService extends PostServiceGrpc.PostServiceImplBase {
             final String userFullName = request.getUserFullName();
             final String title = request.getTitle();
             final String body = request.getBody();
-            final AttachedFile attachedFile = request.getAttachedFile();
             final ProtocolStringList tagProtocolStringList = request.getTagList();
             final List<String> tags = tagProtocolStringList.asByteStringList().stream().map(s -> s.toString(StandardCharsets.UTF_8)).collect(Collectors.toList());
+            final List<AttachedFile> attachedFiles = request.getAttachedFileList();
 
             final boolean apiKeyEmpty = apiKeyValue.isEmpty();
 
@@ -51,12 +51,11 @@ public class PostGrpcService extends PostServiceGrpc.PostServiceImplBase {
                     final boolean userFullNameEmpty = userFullName.isEmpty();
                     final boolean titleEmpty = title.isEmpty();
                     final boolean bodyEmpty = body.isEmpty();
-                    final boolean tagsEmpty = tags.isEmpty();
 
-                    if (usernameEmpty ||userFullNameEmpty ||  titleEmpty || bodyEmpty || tagsEmpty) {
+                    if (usernameEmpty || userFullNameEmpty || titleEmpty || bodyEmpty) {
                         response = responseBuilder.setState(GrpcResponseState.BAD_REQUEST).build();
                     } else {
-                        final Post post = postService.createOne(username, userFullName, title, body, tags, attachedFile);
+                        final Post post = postService.createOne(username, userFullName, title, body, tags, attachedFiles);
                         log.debug("Created post: {}", post);
 
                         response = responseBuilder
