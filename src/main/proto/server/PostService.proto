@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+package com.anthonykim.blog.grpc.service;
+
+enum GrpcResponseState {
+  OK = 0;
+  BAD_REQUEST = 1;
+  FORBIDDEN = 2;
+  NOT_FOUND = 3;
+  UNAUTHORIZED = 4;
+  CONFLICT = 5;
+  INTERNAL_SERVER_ERROR = 6;
+}
+
+message AttachedFile {
+  string fileKey = 1;
+  string downloadUri = 2;
+  string filename = 3;
+  string fileExtension = 4;
+  int64 fileSize = 5;
+}
+
+message CreatePostRequest {
+  string apiKey = 1;
+  string username = 2;
+  string userFullName = 3;
+  repeated string tag = 4;
+  string title = 5;
+  string body = 6;
+  repeated AttachedFile attachedFile = 7;
+}
+
+message CreatePostResponse {
+  GrpcResponseState state = 1;
+  string postId = 2;
+}
+
+service PostService {
+  rpc createPost (CreatePostRequest) returns (CreatePostResponse);
+}
