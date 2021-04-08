@@ -83,12 +83,12 @@ sourceSets {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:${protoBufVersion}"
+        artifact = "com.google.protobuf:protoc:${protoBufVersion}:osx-x86_64"
     }
 
     plugins {
         grpc {
-            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}"
+            artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}:osx-x86_64"
         }
     }
 
