@@ -1,4 +1,4 @@
-FROM openjdk:15-jdk-alpine
+FROM --platform=linux/adm64,linux/arm64/v8 openjdk:15-jdk-alpine
 VOLUME /tmp
 ARG DEPENDENCY
 EXPOSE 80
